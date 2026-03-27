@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f0f0f;
+  --surface: #171717;
+  --surface-elevated: #1f1f1f;
+  --surface-subtle: rgba(245, 245, 245, 0.035);
+  --foreground: #f5f5f5;
+  --muted-foreground: #a3a3a3;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --primary: #d4a373;
+  --primary-foreground: #1a120d;
+  --success: #86b391;
+  --warning: #d4a373;
+  --danger: #d57f73;
+  --info: #c7b08b;
+  --chart-1: #d4a373;
+  --chart-2: #e5bf96;
+  --chart-3: #b68d63;
+  --chart-4: #737373;
+  --chart-5: #d57f73;
+  --ring: rgba(212, 163, 115, 0.28);
+  --shadow-lg: 0 24px 72px rgba(0, 0, 0, 0.34);
+  --shadow-xl: 0 34px 110px rgba(0, 0, 0, 0.45);
+
+  --bg: var(--background);
+  --card: var(--surface);
+  --card-strong: var(--surface-elevated);
+  --ink: #090d12;
+  --text-strong: var(--foreground);
+  --text-soft: var(--muted-foreground);
+  --accent-strong: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+  --accent-subtle: rgba(212, 163, 115, 0.12);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
+  min-width: 0;
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(212, 163, 115, 0.12), transparent 20%),
+    radial-gradient(circle at top right, rgba(212, 163, 115, 0.05), transparent 16%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 18%),
+    var(--background);
 }
 
 body {
-  background: var(--background);
+  background: transparent;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
+}
+
+a,
+button,
+input,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(212, 163, 115, 0.22);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@utility premium-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@utility surface-panel {
+  background: linear-gradient(180deg, rgba(31, 31, 31, 0.98), rgba(23, 23, 23, 0.96));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(18px);
 }

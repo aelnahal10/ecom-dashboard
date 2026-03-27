@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Revenue Intelligence
 
-## Getting Started
+Revenue Intelligence is a premium, frontend-only ecommerce analytics demo built as a Next.js App Router project. It presents Aurelium Goods, a mid-sized Shopify brand, through a polished revenue intelligence product experience with shared filters, charts, tables, and rule-based business insights.
 
-First, run the development server:
+## Stack
+
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- shadcn-style UI components
+- Recharts
+- lucide-react
+- Framer Motion
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production check
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Deploy to GitHub Pages
 
-To learn more about Next.js, take a look at the following resources:
+This project is configured to publish as a static Next.js export on GitHub Pages.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push the repository to GitHub.
+2. In GitHub, open `Settings > Pages`.
+3. Set the source to `GitHub Actions`.
+4. Push to `main`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The workflow in `.github/workflows/deploy-pages.yml` will:
 
-## Deploy on Vercel
+- install dependencies
+- build the app as a static export
+- publish the generated `out/` directory to GitHub Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The config also detects the repository name automatically and applies the correct `basePath` for project pages such as `https://<user>.github.io/<repo>/`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you are publishing from a user or organization Pages repository like `https://<user>.github.io/`, no extra path prefix is added.
+
+## App structure
+
+- `app/`
+  App Router pages and layouts for the dashboard routes.
+- `components/dashboard/`
+  Shell, charts, KPI cards, tables, dialogs, and loading states.
+- `components/providers/`
+  Global filter context and shared derived dashboard state.
+- `components/ui/`
+  Reusable shadcn-style primitives.
+- `lib/data/`
+  Deterministic mock ecommerce dataset.
+- `lib/analytics/`
+  Filtering, allocation, aggregation, trends, and insight generation.
+- `types/`
+  Shared dashboard domain types.
+
+## Mock data
+
+The dataset is generated locally in `lib/data/mock-data.ts` with a deterministic seeded generator so the demo stays stable across runs.
+
+It includes:
+
+- 180 days of daily trading activity
+- 1,000+ orders
+- five channels: Meta, Google, Email, Organic, Direct
+- multiple products and categories
+- regions, refunds, discounts, shipping, COGS, and attributed ad spend
+- first-time and returning customer behavior
+
+Orders are expanded into allocated line items in `lib/analytics/metrics.ts`, which makes category-level filtering and product-level profitability views feel much more realistic than simple hard-coded cards.
+
+## Filter system
+
+Global filters live in `components/providers/dashboard-provider.tsx`.
+
+The provider:
+
+- stores the active date, channel, category, and region filters
+- recalculates filtered orders and allocated line items
+- derives KPIs, trends, tables, channel views, customer views, and insights from the same shared state
+- powers every page from one frontend-only analytics layer
+
+Because the pages read from the same provider, changing a filter updates charts, KPIs, tables, and rule-based insights consistently across the whole app.
