@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { format } from "date-fns";
 import { RefreshCcw, SlidersHorizontal } from "lucide-react";
 
@@ -21,7 +20,6 @@ export function FilterBar() {
     resetFilters,
     setFilter,
   } = useDashboard();
-  const [selectedBrand, setSelectedBrand] = useState("aurelium-goods");
 
   return (
     <div className="sticky top-0 z-30 border-b border-[color:var(--border)] bg-[color:var(--background)]/92 px-6 py-5 backdrop-blur-xl md:px-8">
@@ -33,29 +31,13 @@ export function FilterBar() {
             <Badge variant="muted">Updated through {format(new Date(maxDate), "dd MMM yyyy")}</Badge>
             {isPending ? <Badge variant="warning">Updating view</Badge> : null}
           </div>
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between xl:self-stretch">
-            <div>
-              <h2 className="text-[32px] font-semibold tracking-[-0.04em] text-[color:var(--text-strong)]">
-                Protect revenue. Recover margin.
-              </h2>
-              <p className="mt-1 text-sm text-[color:var(--text-soft)]">
-                Commercial visibility across channel, product, and customer performance.
-              </p>
-            </div>
-            <div className="flex min-w-[230px] flex-col gap-2 rounded-[24px] border border-[color:var(--border)] bg-[color:var(--surface-elevated)] p-3 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-soft)]">
-                Brand selector
-              </p>
-              <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                <SelectTrigger className="border-none bg-transparent px-0 shadow-none focus:bg-transparent">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="aurelium-goods">Aurelium Goods</SelectItem>
-                  <SelectItem value="portfolio-demo">Portfolio demo</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          <div className="max-w-2xl xl:text-right">
+            <h2 className="text-[32px] font-semibold tracking-[-0.04em] text-[color:var(--text-strong)]">
+              Protect revenue. Recover margin.
+            </h2>
+            <p className="mt-1 text-sm text-[color:var(--text-soft)]">
+              A focused operating view for Aurelium Goods across channel, product, and customer performance.
+            </p>
           </div>
         </div>
 
